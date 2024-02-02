@@ -3,9 +3,12 @@
   - [Package Management](#package-management)
     - [overview \& Concept](#overview--concept)
     - [Benefit](#benefit)
-  - [apt](#apt)
-  - [yum](#yum)
-  - [Package Management Comparism](#package-management-comparism)
+  - [Back-end Package Manager](#back-end-package-manager)
+    - [Debian Package Manager (deb)](#debian-package-manager-deb)
+    - [Redhat Package Manager (rpm)](#redhat-package-manager-rpm)
+  - [Front-end Package Manager](#front-end-package-manager)
+    - [Advanced Packaging Tool (APT)](#advanced-packaging-tool-apt)
+    - [Yellowdog Updater Modified (YUM)](#yellowdog-updater-modified-yum)
 
 
 ## Package Management
@@ -14,8 +17,14 @@
 
 ### Benefit
 
-## apt
+## Back-end Package Manager
 
-## yum
+### Debian Package Manager (deb)
 
-## Package Management Comparism
+### Redhat Package Manager (rpm)
+
+## Front-end Package Manager
+
+### Advanced Packaging Tool (APT)
+
+### Yellowdog Updater Modified (YUM)
