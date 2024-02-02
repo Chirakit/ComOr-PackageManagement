@@ -1,21 +1,9 @@
 # Repository Set up & Package Management
 - [Repository Set up \& Package Management](#repository-set-up--package-management)
-  - [Package Management](#package-management)
-    - [overview \& Concept](#overview--concept)
-    - [Benefit](#benefit)
-  - [apt](#apt)
-  - [yum](#yum)
-  - [Package Management Comparism](#package-management-comparism)
+  - [Back-end Package Manager](#back-end-package-manager)
+    - [Debian Package Manager (deb)](#debian-package-manager-deb)
 
 
-## Package Management
+## Back-end Package Manager
 
-### overview & Concept
-
-### Benefit
-
-## apt
-
-## yum
-
-## Package Management Comparism
+### Debian Package Manager (deb)
