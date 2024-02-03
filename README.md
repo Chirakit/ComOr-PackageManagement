@@ -6,7 +6,8 @@
   - [Back-end Package Manager](#back-end-package-manager)
     - [Debian](#debian)
       - [Version History](#version-history)
-      - [Dabian Package Manager (dpkr)](#dabian-package-manager-dpkr)
+      - [Dabian Package Manager (`dpkr`)](#dabian-package-manager-dpkr)
+      - [Syntax](#syntax)
     - [Redhat Package Manager (rpm)](#redhat-package-manager-rpm)
   - [Front-end Package Manager](#front-end-package-manager)
     - [Advanced Packaging Tool (APT)](#advanced-packaging-tool-apt)
@@ -44,7 +45,21 @@ Dabian เป็นโปรเจ็กถูกเริ่มต้นโด�
 - 10 – Buster, 6 กรกฎาคม ค.ศ. 2019
 - 11 – Bullseye, 14 สิงหาคม ค.ศ. 2021
 - 12 - Bookworm, 10 มิถุนายน ค.ศ. 2023
-#### Dabian Package Manager (dpkr)
+
+#### Dabian Package Manager (`dpkr`)
+
+`dprk` คือ package manager ของระบบที่ใช้ Debian ตัวคอมแมน `dpkg` มีหน้าที่รองรับรายละเอียดระดับต่ำของ package management เช่น การ `unpack` และ `install` packages, จัดการ `config` ของ packages, และ ดูแล database ของ package ที่ลงไว้ โดยปกติ `dpkg` จะถูกใช้ร่วมกับ package management tools ตัวอื่นๆ เช่น apt ที่จะมีระดับ interface ที่สูงกว่าระบบ dpkg
+
+#### Syntax
+
+`dpkg [options] <action> <package_name>`
+- -i − Install a package.
+- -r − Remove a package.
+- -P − Purge a package (remove package and configuration files).
+- -l − List all installed packages.
+- -s − Show information about a package.
+- -S − Search for a package by file name.
+- -L − List files installed by a package.
 
 ### Redhat Package Manager (rpm)
 
