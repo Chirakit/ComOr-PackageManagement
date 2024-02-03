@@ -4,7 +4,7 @@
     - [overview \& Concept](#overview--concept)
     - [Benefit](#benefit)
   - [Back-end Package Manager](#back-end-package-manager)
-    - [Debian Package Manager (deb)](#debian-package-manager-deb)
+    - [Debian](#debian)
     - [Redhat Package Manager (rpm)](#redhat-package-manager-rpm)
   - [Front-end Package Manager](#front-end-package-manager)
     - [Advanced Packaging Tool (APT)](#advanced-packaging-tool-apt)
@@ -19,7 +19,7 @@
 
 ## Back-end Package Manager
 
-### Debian Package Manager (deb)
+### Debian
 
 ### Redhat Package Manager (rpm)
 
