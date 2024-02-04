@@ -3,7 +3,6 @@
   - [Package Management](#package-management)
     - [overview \& Concept](#overview--concept)
     - [Benefit](#benefit)
-        - [Installing a package](#installing-a-package)
     - [Redhat Package Manager (rpm)](#redhat-package-manager-rpm)
   - [Front-end Package Manager](#front-end-package-manager)
     - [Advanced Packaging Tool (APT)](#advanced-packaging-tool-apt)
@@ -16,7 +15,6 @@
 
 ### Benefit
 
-##### Installing a package
 
 ### Redhat Package Manager (rpm)
 

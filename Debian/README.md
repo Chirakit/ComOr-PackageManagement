@@ -36,3 +36,5 @@ Dabian เป็นโปรเจ็กถูกเริ่มต้นโด�
 - -s − Show information about a package.
 - -S − Search for a package by file name.
 - -L − List files installed by a package.
+
+##### Installing a package
