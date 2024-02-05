@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd6fb238-6008-456f-90f8-c9a2d7dc7e49" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/RedhatPackageManager(65070005)/RPM.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
