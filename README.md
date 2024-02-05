@@ -3,10 +3,10 @@
   - [Package Management](#package-management)
     - [overview \& Concept](#overview--concept)
     - [Benefit](#benefit)
-    - [Redhat Package Manager (rpm)](#redhat-package-manager-rpm)
-  - [Front-end Package Manager](#front-end-package-manager)
-    - [Advanced Packaging Tool (APT)](#advanced-packaging-tool-apt)
-    - [Yellowdog Updater Modified (YUM)](#yellowdog-updater-modified-yum)
+  - [Debian](Debian(65070064)/README.md#debian)
+  - [Redhat Package Manager](RedhatPackageManager(65070005)/README.md#redhat-package-manager-rpm)
+  - [APT](APT(65070007,65070040)/README.md#advanced-packaging-tool-apt)
+  - [YUM](YUM(65070034,65070047)/README.md#yellowdog-updater-modified-yum)
 
 
 ## Package Management
