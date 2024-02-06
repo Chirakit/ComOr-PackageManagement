@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd6fb238-6008-456f-90f8-c9a2d7dc7e49" name="Changes" comment="ลอง push ดู">
+    <list default="true" id="fd6fb238-6008-456f-90f8-c9a2d7dc7e49" name="Changes" comment="ข้อมูลของ RPM และ ข้อดีของ RPM เสร็จ">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RedhatPackageManager(65070005)/RPM.md" beforeDir="false" afterPath="$PROJECT_DIR$/RedhatPackageManager(65070005)/RPM.md" afterDir="false" />
     </list>
@@ -60,11 +60,20 @@
       <option name="project" value="LOCAL" />
       <updated>1707123100539</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ข้อมูลของ RPM และ ข้อดีของ RPM เสร็จ">
+      <option name="closed" value="true" />
+      <created>1707126252066</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1707126252066</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ลอง push ดู" />
-    <option name="LAST_COMMIT_MESSAGE" value="ลอง push ดู" />
+    <MESSAGE value="ข้อมูลของ RPM และ ข้อดีของ RPM เสร็จ" />
+    <option name="LAST_COMMIT_MESSAGE" value="ข้อมูลของ RPM และ ข้อดีของ RPM เสร็จ" />
   </component>
 </project>
