@@ -1,5 +1,1 @@
-# YUM
-
-<hr>
-
-## YUM คืออะไร
+### Yellowdog Updater Modified (YUM)
