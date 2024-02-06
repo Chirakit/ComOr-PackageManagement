@@ -53,6 +53,7 @@ Dabian เป็นโปรเจ็กถูกเริ่มต้นโด�
 | -S | Search for a package by file name. |
 | -L | List files installed by a package. |
 | --configure | Reconfigure a package after it has been installed. |
+| --update-avail | Update available repository. |
 
 ### Installing a package
 การใช้ option -i จะทำหน้าที่ติดตั้ง package ลงไว้ในเครื่องได้ตาม syntax นี้<br>
