@@ -21,10 +21,6 @@ APT สามารถจัดการกับไฟล์ที่คอม�
 * เรียกใช้ dpkg ด้วยการเรียงลำดับแพ็คเกจอย่างเหมาะสมเพื่อให้การติดตั้งหรือลบ
 * ในบางกรณีอาจใช้ตัวเลือก --force ของ dpkg เพื่อบังคับการดำเนินการ
 
-## References
-* APT - Debian Wiki: https://wiki.debian.org/Apt
-* APT - Wiki: https://en.wikipedia.org/wiki/APT_(software)
-
 ## apt (Advance Packging Tools)
 การที่ apt install, remove,.. etc  package ต่างๆ ของ **apt** จะเป็นการ download package มาจาก repository ที่มีอยู่แล้ว
 
@@ -186,7 +182,8 @@ run nyancat
 
 
 ## Reference
+* APT - Debian Wiki: https://wiki.debian.org/Apt
+* APT - Wiki: https://en.wikipedia.org/wiki/APT_(software)
 - [https://jjeongil.tistory.com/1672](https://jjeongil.tistory.com/1672)
-
 - [https://tttap.tistory.com/130](https://tttap.tistory.com/130)
 
