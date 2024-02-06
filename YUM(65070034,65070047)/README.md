@@ -157,9 +157,29 @@
 
 run nyancat
 
+## Adding Repository
+
+ การเพิ่ม repository สามารถทำได้ด้วย command `add-apt-repository`
+
+### Installing `add-apt-repository`
+
+หากคุณได้รับ error ว่า "add-apt-repository command not found" คุณสามารถลง software-properties-common package ที่มี script ของ `add-apt-repository` อยู่ได้โดยการรัน command ดังนี้:
+```
+sudo apt update
+sudo apt install software-properties-common
+```
+
+### Adding Repositories with `add-apt-repository`
+
+`add-apt-repository [options] repository`<br>
+repository สามารถใส่เป็น repository entry ปกติที่สามารถใส่เพิ่มเข้าไปในไฟล์ sources.list หรือเป็น PPA repository ในรูบแบบ `ppa:<user>/<ppa-name>`
+
+`man add-apt-repository` เป็น command สำหรับแสดงรูปแบบคอมแมนด์ของ `add-apt-repository`
 
 ## Reference
 
 [https://jjeongil.tistory.com/1672](https://jjeongil.tistory.com/1672)
 
 [https://tttap.tistory.com/130](https://tttap.tistory.com/130)
+
+[https://linuxize.com/post/how-to-add-apt-repository-in-ubuntu/](https://linuxize.com/post/how-to-add-apt-repository-in-ubuntu/)
