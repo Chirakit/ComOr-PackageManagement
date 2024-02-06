@@ -12,6 +12,7 @@ Dabian  เป็นชุดของซอฟต์แวร์เสรีท
     - [Searching for a package by file name](#searching-for-a-package-by-file-name)
     - [Verifying package integrity](#verifying-package-integrity)
     - [Reconfiguring a package](#reconfiguring-a-package)
+    - [Update repository](#updating-your-repositories)
 
 Dabian เป็นโปรเจ็กถูกเริ่มต้นโดย Ian Murdock ในวันที่ 16 สิงหาคม ค.ศ. 1993, รุ่นของเดเบียนนับรุ่น stable เป็นหลัก ปัจจุบันรุ่น stable ล่าสุดคือ 12 หรือ Bookworm โดยโค้ดเนมของแต่ละเวอร์ชันนั้นจะตั้งตามชื่อตัวละครจากเรื่อง ToyStory<br>
 <img src="images\Toy_Story_logo.png" alt="drawing" width="200"/>
