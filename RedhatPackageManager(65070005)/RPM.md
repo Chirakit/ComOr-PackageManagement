@@ -119,5 +119,11 @@ rpm -V foo
   ```
   rpm -Vp foo-1.0-1.i386.rpm
   ```
+## แหล่งอ้างอิง
+ [Red hat package manager](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/deployment_guide/ch-rpm)
+## จัดทำโดย
+<h4>กนกพล โปัยขำ 65070005</h4>
+<img src="https://cdn.discordapp.com/attachments/1195967188335603753/1204303957103476776/20240118_184611.jpg?ex=65d43e76&is=65c1c976&hm=a36f93e0559bba9fd05a47c13647641af9eb9274930120a61dd73692d30735b8&" width="50%" height="50%">
+
 
 
