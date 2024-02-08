@@ -155,3 +155,191 @@ emacs-auctex.noarch : Enhanced TeX modes for Emacs
 Warning: No matches found for: gvim
 ```
 
+## Listing Packages
+
+เพื่อแสดงข้อมูลเกี่ยวกับ package ทั้งหมดที่ติดตั้งและที่มีให้ในปัจจุบัน, พิมพ์คำสั่งต่อไปนี้ที่หน้าต่าง shell:
+
+```
+yum list all
+```
+
+
+เพื่อแสดงรายการ package ที่ติดตั้งและที่มีให้ที่ตรงกับคำสั่ง glob expression ที่คุณใส่, ให้ใช้คำสั่งต่อไปนี้:
+
+```
+yum list glob_expression&hellip;
+```
+
+**ตัวอย่าง :**
+
+```
+~]$ yum list abrt-addon\* abrt-plugin\*
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+Installed Packages
+abrt-addon-ccpp.x86_64          2.1.11-35.el7       @rhel-7-server-rpms
+abrt-addon-kerneloops.x86_64       2.1.11-35.el7       @rhel-7-server-rpms
+abrt-addon-pstoreoops.x86_64       2.1.11-35.el7       @rhel-7-server-rpms
+abrt-addon-python.x86_64         2.1.11-35.el7       @rhel-7-server-rpms
+abrt-addon-vmcore.x86_64         2.1.11-35.el7       @rhel-7-server-rpms
+abrt-addon-xorg.x86_64          2.1.11-35.el7       @rhel-7-server-rpms
+```
+
+เพื่อแสดงรายการ package ทั้งหมดที่ติดตั้งบนระบบของคุณ, ให้ใช้คำสั่งต่อไปนี้พร้อมกับคำสั่งคีย์ "installed" คำสั่งจะแสดงผลลัพธ์ทั้งหมดและคอลัมน์ทางขวาสุดในผลลัพธ์จะแสดงที่เก็บข้อมูลที่ package ถูกดึงมา.
+
+```
+yum list installed glob_expression&hellip;
+```
+
+**ตัวอย่าง :**
+
+```
+~]$ yum list installed "krb?-*"
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+Installed Packages
+krb5-libs.x86_64         1.13.2-10.el7          @rhel-7-server-rpms
+```
+
+เพื่อแสดงรายการ package ทั้งหมดที่มีในทุกที่เก็บข้อมูลที่เปิดใช้งานและพร้อมที่จะติดตั้ง, ให้ใช้คำสั่งต่อไปนี้ในรูปแบบต่อไปนี้:
+
+```
+yum list available glob_expression&hellip;
+```
+
+**ตัวอย่าง :**
+
+```
+~]$ yum list available gstreamer*plugin\*
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+Available Packages
+gstreamer-plugins-bad-free.i686       0.10.23-20.el7     rhel-7-server-rpms
+gstreamer-plugins-base.i686         0.10.36-10.el7     rhel-7-server-rpms
+gstreamer-plugins-good.i686         0.10.31-11.el7     rhel-7-server-rpms
+gstreamer1-plugins-bad-free.i686      1.4.5-3.el7      rhel-7-server-rpms
+gstreamer1-plugins-base.i686        1.4.5-2.el7      rhel-7-server-rpms
+gstreamer1-plugins-base-devel.i686     1.4.5-2.el7      rhel-7-server-rpms
+gstreamer1-plugins-base-devel.x86_64    1.4.5-2.el7      rhel-7-server-rpms
+gstreamer1-plugins-good.i686        1.4.5-2.el7      rhel-7-server-rpms
+```
+
+**Listing Repositories**
+เพื่อแสดงรายการ ID ของที่เก็บข้อมูล, ชื่อ, และจำนวน package สำหรับแต่ละที่เก็บข้อมูลที่เปิดใช้งานในระบบของคุณ, ให้ใช้คำสั่งต่อไปนี้:
+
+```
+yum repolist
+```
+
+เพื่อแสดงข้อมูลเพิ่มเติมเกี่ยวกับที่เก็บข้อมูลเหล่านี้, เพิ่มตัวเลือก `-v` เข้าไปในคำสั่ง. ด้วยตัวเลือกนี้เปิดใช้งาน, ข้อมูลรวมถึงชื่อไฟล์, ขนาดทั้งหมด, วันที่ของการอัปเดตล่าสุด, และ URL ของแหล่งเบสจะถูกแสดงสำหรับแต่ละที่เก็บข้อมูลที่รายการ. นอกจากนี้, คุณสามารถใช้คำสั่ง `repoinfo` ที่จะให้ผลลัพธ์เหมือนกัน
+
+```
+yum repolist -v
+```
+```
+yum repoinfo
+```
+
+เพื่อแสดงรายการทั้งที่เปิดใช้งานและปิดใช้งาน, ให้ใช้คำสั่งต่อไปนี้. คอลัมน์ "สถานะ" ถูกเพิ่มเข้าไปในรายการผลลัพธ์เพื่อแสดงว่าที่เก็บข้อมูลไหนถูกเปิดใช้งาน
+
+```
+yum repolist all
+```
+
+โดยการส่ง `disabled` เป็น argument แรก, คุณสามารถลดผลลัพธ์คำสั่งเพื่อแสดงที่เก็บข้อมูลที่ถูกปิดใช้งานเท่านั้น. สำหรับการระบุเพิ่มเติม, คุณสามารถส่ง ID หรือชื่อของที่เก็บข้อมูลหรือ glob_expressions ที่เกี่ยวข้องเป็น argument . โปรดทราบว่าหากมีการตรงกันที่สมบูรณ์ระหว่าง ID หรือชื่อของที่เก็บข้อมูลกับ argument ที่ถูกใส่เข้าไป, ที่เก็บข้อมูลนี้จะถูกแสดงในรายการ แม้ว่าจะไม่ผ่านกรอง enabled หรือ disabled
+
+## Displaying Package Information
+
+เพื่อแสดงข้อมูลเกี่ยวกับหนึ่งหรือมากกว่าหนึ่ง package, ให้ใช้คำสั่งต่อไปนี้ (glob expressions สามารถใช้ได้ในที่นี้เช่นกัน):
+
+```
+yum info package_name&hellip;
+```
+เอาชื่อ package มาใส่ตรง package_name
+
+**ตัวอย่าง :**
+
+```
+~]$ yum info abrt
+Loaded plugins: langpacks, product-id, search-disabled-repos, subscription-manager
+Installed Packages
+Name    : abrt
+Arch    : x86_64
+Version   : 2.1.11
+Release   : 35.el7
+Size    : 2.3 M
+Repo    : installed
+From repo  : rhel-7-server-rpms
+Summary   : Automatic bug detection and reporting tool
+URL     : https://fedorahosted.org/abrt/
+License   : GPLv2+
+Description : abrt is a tool to help users to detect defects in applications and
+      : to create a bug report with all information needed by maintainer to fix
+      : it. It uses plugin system to extend its functionality.
+```
+
+
+คำสั่ง `yum info package_name` คล้ายกับคำสั่ง `rpm -q --info package_name`, แต่ให้ข้อมูลเพิ่มเติมที่ระบุชื่อของที่เก็บข้อมูล yum ที่แพคเกจ RPM ถูกติดตั้งมา (ดูที่บรรทัด `From repo:` ในผลลัพธ์).
+
+**การใช้ yumdb**
+คุณยังสามารถสอบถามฐานข้อมูล yum เพื่อดึงข้อมูลที่เป็นทางเลือกและมีประโยชน์เกี่ยวกับ package โดยใช้คำสั่งต่อไปนี้:
+
+```
+yumdb info package_name
+```
+
+คำสั่งนี้ให้ข้อมูลเพิ่มเติมเกี่ยวกับ package, รวมถึง check sum ของแพคเกจ (และขั้นตอนที่ใช้สร้าง, เช่น SHA-256), คำสั่งที่ใช้บนบรรทัดคำสั่งที่ถูกเรียกใช้เพื่อติดตั้ง package (ถ้ามี), และเหตุผลที่ package ถูกติดตั้งในระบบ (โดยที่ `user` ระบุว่าได้ถูกติดตั้งโดยผู้ใช้, และ `dep` หมายถึงมีการนำเข้ามาเนื่องจาก dependency)
+
+**ตัวอย่าง :**
+```
+~]$ yumdb info yum
+Loaded plugins: langpacks, product-id
+yum-3.4.3-132.el7.noarch
+   changed_by = 1000
+   checksum_data = a9d0510e2ff0d04d04476c693c0313a11379053928efd29561f9a837b3d9eb02
+   checksum_type = sha256
+   command_line = upgrade
+   from_repo = rhel-7-server-rpms
+   from_repo_revision = 1449144806
+   from_repo_timestamp = 1449144805
+   installed_by = 4294967295
+   origin_url = https://cdn.redhat.com/content/dist/rhel/server/7/7Server/x86_64/os/Packages/yum-3.4.3-132.el7.noarch.rpm
+   reason = user
+   releasever = 7Server
+   var_uuid = 147a7d49-b60a-429f-8d8f-3edb6ce6f4a1
+```
+
+## Installing Packages
+เพื่อติดตั้ง package เดี่ยวและทุก dependencies ที่ยังไม่ได้ติดตั้ง, ให้ใช้คำสั่งต่อไปนี้ในฐานะ `root`:
+```
+yum install package_name
+```
+
+คุณยังสามารถติดตั้งหลาย package พร้อมกันได้โดยการเพิ่มชื่อของ package เหล่านั้นเป็น arguments. เพื่อทำเช่นนั้น, พิมพ์ในฐานะ `root`:
+```
+yum install package_name package_name&hellip;
+```
+
+หากคุณกำลังติดตั้ง package ในระบบ multilib เช่นเครื่อง AMD64 หรือ Intel 64, คุณสามารถระบุโครงสร้างของแพคเกจ (ตราบเท่าที่มีในที่เก็บข้อมูลที่เปิดใช้งาน) โดยการเพิ่ม .arch ลงท้ายที่ชื่อ package :
+```
+yum install package_name.arch
+```
+
+**ตัวอย่าง :**
+```
+~]# yum install sqlite.i686
+```
+
+คุณสามารถใช้ glob expressions เพื่อติดตั้ง package หลายตัวที่มีชื่อคล้ายกันได้อย่างรวดเร็ว. ดำเนินการในฐานะ root ด้วยคำสั่งต่อไปนี้:
+```
+yum install glob_expression&hellip;
+```
+
+**ตัวอย่าง :**
+```
+~]# yum install audacious-plugins-\*
+```
+
+นอกจากชื่อ package และ glob expressions, คุณยังสามารถให้ชื่อไฟล์ให้กับ yum install ได้. หากคุณทราบชื่อของไบนารีที่คุณต้องการติดตั้ง แต่ไม่ทราบชื่อ package , คุณสามารถให้ yum install รับชื่อเส้นทางไฟล์. ทำเป็นผู้ดูแลระบบ (root):
+```
+yum install /usr/sbin/named
+```
+
+
