@@ -375,8 +375,6 @@ cachedir = /var/cache/yum/x86_64/6Server/example
 
 ระบบจะทำการสร้าง metadata ที่จำเป็นสำหรับ Yum repository รวมถึง SQLite database เพื่อเพิ่มความเร็วในการทำงานของ `yum`
 
-
-
 ### Reference
 - How To Install "yum" Package on Ubuntu \
   https://zoomadmin.com/HowToInstall/UbuntuPackage/yum
