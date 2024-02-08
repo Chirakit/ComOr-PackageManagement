@@ -176,8 +176,47 @@ repository สามารถใส่เป็น repository entry ปกติ
 
 `man add-apt-repository` เป็น command สำหรับแสดงรูปแบบคอมแมนด์ของ `add-apt-repository`
 
+### Example using `add-apt-repository`
 
+สมมุติว่าคุณต้องการติดตั้ง [MangoDB](https://www.mongodb.com/cloud/atlas/lp/try4?utm_source=google&utm_campaign=search_gs_pl_evergreen_atlas_core_prosp-brand_gic-null_apac-th_ps-all_desktop_eng_lead&utm_term=mongodb&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=12212624374&adgroup=115749714863&cq_cmp=12212624374&gad_source=1&gclid=CjwKCAiA8YyuBhBSEiwA5R3-EyYTaCN9i1cdSHCcMKyDjCRtazKmepYdnfIeVY-WFNl5VzoqM0g-sBoCq_IQAvD_BwE) จาก official repositories
 
+เริ่มจากการ import public key ของ repository:<br>
+```
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+```
+จากนั้นก็เพิ่ม MangoDB repository เข้ามาด้วย:
+```
+sudo add-apt-repository 'deb [arch=amd64] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse'
+```
+ซึ่งจะทำการเพิ่ม `source.list` เข้ามาในเครื่อง<br>
+เพียงเท่านี้คุณก็สามารถลง package จาก repository นี้ได้แล้ว:
+`sudo apt install mongodb-org`
+หากคุณต้องการลบ repository ที่ลงไว้ออก ก็สามารถใช้ `--remove` ได้:
+```
+sudo add-apt-repository --remove 'deb [arch=amd64] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse'
+```
+
+### Adding PPA Repositories
+PPA หรือ Personal Package Archive เป็นเครื่องมือที่ช่วยให้ผู้ใช้สามารถ upload Ubuntu source packages ที่สร้างขึ้นได้ และ published พร้อมกับ Launchpad ในรูปแบบของ apt repository
+
+การเพื่ม PPA จะสร้างไฟล์ใหม่ภายใต้โฟลเดอร์ /etc/apt/sources.list.d/ โดยใช้command:
+```
+add-apt-repository ppa:<ppa_name>
+```
+และกด`Enter`เมื่อโดนถาม
+
+เมื่อ PPA repository ได้ถูกเพื่มเข้ามาแล้ว ก็สามารถใช้ [`sudo apt install`](#apt-install) เพื่อเพิ่ม Package ได้เลย
+
+### Manually Adding Repositories
+สามารถทำได้ด้วยการแก้ไขไฟล์ใน `/etc/apt/sources.list` และเพื่ม repository line ที่บรรทัดสุดท้าย เช่น สำหรับ CouchDB repository
+```
+deb https://apache.bintray.com/couchdb-deb bionic main
+```
+เวลาเพิ่ม repository แบบ manual จำเป็นต้อง import key เองด้วย โดยสามารถใช้ wget หรือ curl: สำหรับ CouchDB repository
+```
+curl -L https://couchdb.apache.org/repo/bintray-pubkey.asc | sudo apt-key add -
+```
+จากนั้นก็ทำการ update package index ด้วย `auso apt update` หลังจากนั้นก็ [`sudo apt install`](#apt-install) เพื่อเพิ่ม Package ได้เลย
 ## Reference
 
 [https://jjeongil.tistory.com/1672](https://jjeongil.tistory.com/1672)
