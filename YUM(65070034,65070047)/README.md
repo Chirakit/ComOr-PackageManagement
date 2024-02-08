@@ -342,4 +342,15 @@ yum install glob_expression&hellip;
 yum install /usr/sbin/named
 ```
 
+จากนั้น Yum จะค้นหาผ่านรายการ package ของมัน, พบ package ที่ `/usr/sbin/named`, หากมี, และจะขอคำยินยอมจากคุณว่าคุณต้องการติดตั้งหรือไม่
+อย่างที่คุณเห็นในตัวอย่างข้างต้น, คำสั่ง yum install ไม่ต้องการ arguments ที่กำหนดไว้เป็นรูปแบบที่เข้มงวด. มันสามารถประมวลผลรูปแบบที่แตกต่างกันของชื่อ package และ glob expressions, ซึ่งทำให้การติดตั้งเป็นเรื่องที่สะดวกสบายสำหรับผู้ใช้. อย่างไรก็ตาม, มันจะใช้เวลาพักจนกว่า yum จะแปลงข้อมูลเข้าให้ถูกต้อง, โดยเฉพาะหากคุณระบุจำนวนมากของแพคเกจ. เพื่อเพิ่มประสิทธิภาพในการค้นหา package, คุณสามารถใช้คำสั่งต่อไปนี้เพื่อกำหนดโดยชัดเจนว่าต้องการแปลง arguments อย่างไร:
 
+```
+yum install-n name
+```
+```
+yum install-na name.architecture
+```
+```
+yum install-nevra name-epoch:version-release.architecture
+```
