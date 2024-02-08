@@ -25,9 +25,9 @@
 
 ### **How to install YUM in Ubuntu**
 1. เปิด command line terminal (ใช้ APT ในการติดตั้ง)
-2. รันคำสั่ง ==update== เพื่ออัพเดต package repositories และรับข้อมูลจาก package ล่าสุด \
+2. รันคำสั่ง `update` เพื่ออัพเดต package repositories และรับข้อมูลจาก package ล่าสุด \
    `sudo apt-get update -y`
-3. รันคำสั่งที่ติดตั้งด้วย ==-y== เพื่อความรวดเร็วในการติดตั้ง package \
+3. รันคำสั่งที่ติดตั้งด้วย `-y` เพื่อความรวดเร็วในการติดตั้ง package \
    `sudo apt-get install -y yum`
 
 ### **Configuring Yum and Yum Repositories**
@@ -163,13 +163,226 @@ obsoletes=1 เป็นค่า default \
 \
 *directory* เป็น absolute path ของ directory ที่ไฟล์ `.repo` ทั้งหมดถูกตั้งอยู่ ไฟล์ `.repo` ทุกไฟล์จะมีข้อมูล repository  (คล้ายกับในส่วนตรง `[repository]` ใน `/etc/yum.conf`)
 `yum` รวบรวมข้อมูล repository ทั้งหมดจากไฟล์ `.repo` และส่วน `[repository]` ในไฟล์ `/etc/yum.conf` เพื่อสร้างรายการหลักของ repositories ที่จะใช้ในการทำ transaction ต่างๆ
-ถ้า `reposdir` ไม่ได้ถูกตั้งค่า , `yum` จะใช้ default directory เป็น `/etc/yum.repos.d/` \
+ถ้า `reposdir` ไม่ได้ถูกตั้งค่า , `yum` จะใช้ default directory เป็น `/etc/yum.repos.d/`
 \
 **`retries` =*value*** \
 \
-*value* เป็นจำนวนเต็ม `0` หรือมากกว่า ค่าๆ นี้คือจำนวนครั้งที่ `yum` ควรพยายามดึงไฟล์ก่อนที่จะคืนค่า error กลับมา การตั้งค่าเป็น `0` จะทำให้ `yum` ลองดึงไฟล์อีกครั้งและทำแบบนี้ต่อไปเรื่อยๆ ค่า default คือ `10`
+*value* เป็นจำนวนเต็ม `0` หรือมากกว่า ค่าๆ นี้คือจำนวนครั้งที่ `yum` ควรพยายามดึงไฟล์ก่อนที่จะคืนค่า error กลับมา การตั้งค่าเป็น `0` จะทำให้ `yum` ลองดึงไฟล์อีกครั้งและทำแบบนี้ต่อไปเรื่อยๆ ค่า default คือ `10` \
+
+#### Setting [repository] Options
+ส่วน `[repository]` repository จะมี Unique ID เป็นของตัวเอง ช่วยให้กำหนด Yum repositories ของแต่ละตัวได้ง่าย เพื่อป้องกันการซ้ำ
+ของ ID \
+
+ยกตัวอย่างสิ่งที่ต้องมีขั้นต่ำในส่วนของ `[repository]`
+```
+[repository]
+name=repository_name
+baseurl=repository_url
+```
+ในส่วนของ `[repository]` หลักๆ ที่ต้องจำเป็นต้องมีคือ : \
+\
+**`name`=*repository_name*** \
+\
+*repository_name* คือชื่อของ repository ที่เราตั้งขึ้น \
+\
+**`baseurl`=*repository_url*** \
+\
+*repository_url* เป็น url ที่ link ไปที่ directory ที่ `datarepo` ของ repository ถูกตั้งอยู่ :
+- หาก repository นั้นให้บริการผ่าน HTTP ให้ใช้ `http://path/to/repo`
+- หาก repository นั้นให้บริการผ่าน FTP ให้ใช้ `ftp://path/to/repo`
+- หาก repository อยู่เคริ่องของเรา ให้ใช้: `file:///path/to/local/repo`
+
+แต่โดยโดยปกติ URL ส่วยใหญ่จะเป็น HTTP link, เช่น : \
+`baseurl=http://path/to/repo/releases/$releasever/server/$basearch/os/`
+
+แล้วก็จะมีคำสั่งที่มีค่อนข้างประโยชน์ในส่วน `[repository]` ด้วย : \
+\
+**`enable`=*value*** \
+\
+ค่าที่ใส่ value : \
+`0` - ไม่รวม repository นี้เป็น package source เมื่อทำการอัปเดตและติดตั้ง ซึ่งเป็นวิธีที่ง่ายที่สุดที่ใช้เปิด-ปิด repository แบบเร็วๆ
+มันจะมีประโยชน์ตรงที่ต้องการ package อย่างเดียวจาก repository \
+`1` - รวม repository นี้เป็น package source 
+
+การเปิดและปิด repository ยังสามารถทำได้โดยการส่งค่า `--enablerepo=repo_name` หรือ `--disablerepo=repo_name` ให้กับ yum 
+หรือใช้หน้าต่าง **Add/Remove Software** ของโปรแกรม **PackageKit** ก็ได้
+
+ต่อไปนี้คือตัวอย่างไฟล์ `/etc/yum.repos.d/redhat.repo` :
+```
+#
+# Red Hat Repositories
+# Managed by (rhsm) subscription-manager
+#
+
+[red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-rpms]
+name = Red Hat Enterprise Linux Scalable File System (for RHEL 6 Entitlement) (RPMs)
+baseurl = https://cdn.redhat.com/content/dist/rhel/entitlement-6/releases/$releasever/$basearch/scalablefilesystem/os
+enabled = 1
+gpgcheck = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+sslverify = 1
+sslcacert = /etc/rhsm/ca/redhat-uep.pem
+sslclientkey = /etc/pki/entitlement/key.pem
+sslclientcert = /etc/pki/entitlement/11300387955690106.pem
+
+[red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-source-rpms]
+name = Red Hat Enterprise Linux Scalable File System (for RHEL 6 Entitlement) (Source RPMs)
+baseurl = https://cdn.redhat.com/content/dist/rhel/entitlement-6/releases/$releasever/$basearch/scalablefilesystem/source/SRPMS
+enabled = 0
+gpgcheck = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+sslverify = 1
+sslcacert = /etc/rhsm/ca/redhat-uep.pem
+sslclientkey = /etc/pki/entitlement/key.pem
+sslclientcert = /etc/pki/entitlement/11300387955690106.pem
+
+[red-hat-enterprise-linux-scalable-file-system-for-rhel-6-entitlement-debug-rpms]
+name = Red Hat Enterprise Linux Scalable File System (for RHEL 6 Entitlement) (Debug RPMs)
+baseurl = https://cdn.redhat.com/content/dist/rhel/entitlement-6/releases/$releasever/$basearch/scalablefilesystem/debug
+enabled = 0
+gpgcheck = 1
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+sslverify = 1
+sslcacert = /etc/rhsm/ca/redhat-uep.pem
+sslclientkey = /etc/pki/entitlement/key.pem
+sslclientcert = /etc/pki/entitlement/11300387955690106.pem
+```
 
 #### **Using Yum Variables**
+`$releasever` \
+ตัวแปรนี้เพื่ออ้างอิงเวอร์ชั่น โดย Yum ได้รับค่าของ `$releasever` จากบรรทัด `distroverpkg=value` ในไฟล์
+/etc/yum.conf เช่น 6Client, 6Server
+
+`$arch` \
+ตัวแปรนี้เพื่ออ้างถึงสถาปัตยกรรม CPU ของระบบตามผลลัพธ์ที่ได้จากการเรียกใช้ฟังก์ชั่น os.uname() ใน Python
+
+`$basearch` \
+ใช้ $basearch เพื่ออ้างถึงสถาปัตยกรรมหลักของระบบคอมพิวเตอร์ เช่น x86_64, AMD64
+
+`$YUM0-9` \
+ทั้ง 10 ตัวแปร (YUM0, YUM1, ..., YUM9) ถูกแทนที่ด้วย environment variables ของ shell ที่มีชื่อเดียวกัน หากอ้างถึงหนึ่งในตัวแปร
+(ใน /etc/yum.conf เป็นตัวอย่าง) และ environment variable ของ shell ที่ไม่ใช่ชื่อเดียวกัน แล้วตัวแปรของ configuration ค่าจะไม่ถูกแทนที่
+
+เพื่อกำหนดตัวแปรเองหรือที่ต้องการแทนค่าของตัวแปรที่มีอยู่ สร้างไฟล์ที่มีชื่อเดียวกับตัวแปร (โดยไม่ต้องมีเครื่องหมาย “$”) ใน directory `/etc/yum/vars`
+และเพิ่มค่าที่ต้องการลงบนบรรทัดแรกของไฟล์
+
+ยกตัวอย่างเช่น \
+คำอธิบายของ repository รวมถึงชื่อ OS เพื่อนิยามตัวแปรใหม่ที่เรียกว่า `$osname` สร้างไฟล์ใหม่พร้อม “Red Hat Enterprise Linux”
+บนบรรทัดแรก และบันทึกไฟล์ที่ `/etc/yum/vars/osname` : 
+
+`~]# echo "Red Hat Enterprise Linux" > /etc/yum/vars/osname`
+
+ถ้าแทนที่ด้วย 'Red Hat Enterprise Linux 6' สามารถแก้ไขไฟล์ได้ในไฟล์ `.repo` :
+`name=$osname $releasever`
+
+#### Viewing the Current Configuration
+เพื่อแสดงค่าปัจจุบันของ Yum options ทั้งหมด (มันก็คือตัวเลือกที่ระบุในส่วน `[main]` ของไฟล์ `/etc/yum.conf`), ให้ run `yum-config-manager`
+โดยไม่ใส่ตัวเลือกบน command-line : 
+
+`yum-config-manager`
+
+เพื่อแสดงรายการเนื้อหาในของส่วนการกำหนดค่าที่แตกต่างกันแค่ส่วนเดียวหรือตรงส่วนอื่นๆ ให้ใช้คำสั่งนี้:
+
+`yum-config-manager section`
+
+แล้วยังสามารถใช้ glob expression เพื่อแสดงการกำหนดค่าของทุกส่วนที่ตรงกัน :
+
+`yum-config-manager glob_expression`
+
+ยกตัวอย่างเช่น ถ้าอยากให้แสดงรายการทุกตัวเลือกการกำหนดค่า และแสดงค่าที่สอดคล้องกัน ให้พิมพ์คำสั่งนี้ลงใน shell prompt :
+```
+~]$ yum-config-manager main \*
+Loaded plugins: product-id, refresh-packagekit, subscription-manager
+================================== main ===================================
+[main]
+alwaysprompt = True
+assumeyes = False
+bandwith = 0
+bugtracker_url = https://bugzilla.redhat.com/enter_bug.cgi?product=Red%20Hat%20Enterprise%20Linux%206&component=yum
+cache = 0
+[output truncated]
+```
+
+#### **Adding, Enabling, and Disabling a Yum Repository**
+ในข้อหัว [Setting [repository] Options](#setting-repository-options) ได้บอกถึงตัวเลือกต่าง ๆ ที่สามารถใช้เพื่อกำหนด 
+Yum repository ได้ ในหัวข้อนี้จะอธิบายวิธีการเพิ่ม เปิดใช้งาน และปิดใช้งาน repository โดยใช้คำสั่ง `yum-config-manager`
+
+##### Adding a Yum Repository
+การเพิ่ม repository นั้น สามารถเพิ่มตรงส่วน `[repository]` ในไฟล์ `/etc/yum.conf` หรือไฟล์ `.repo` ที่อยู่ตรง directory
+`/etc/yum.repos.d/` ไฟล์ทั้งหมดที่มีนามสกุล .repo ต่อท้าย directory นี้จะถูกอ่านโดย yum
+
+Yum repositories แต่ละอันจะมีไฟล์ `.repo` ของแต่ตัวเอง เพื่อทำการเพิ่ม repository เช่น เราต้องการติดตั้งระบบต่างแล้วเปิดใช้งาน
+ให้รันคำสั่งนี้ (username เราต้องเป็น root) :
+1. `sudo su` -> เข้าถึง root (ถ้ามี password ให้ใส่ password ด้วย มันจะเป็น password เดียวกับตอนที่ login เข้าใช้งาน ubuntu)
+2. `yum-config-manager --add-repo repository_url` -> ใส่คำสั่งนี้เข้าไป
+
+ตรง *repository_url* เป็น link ที่พาไปที่ไฟล์ `.repo` เช่น ใส่ link http://www.example.com/example.repo เพื่อเพิ่มที่ตั้งของ repository
+เราสามารถใส่คำสั่งนี้ลงไปใน shell prompt ได้ :
+```
+~]# yum-config-manager --add-repo http://www.example.com/example.repo
+Loaded plugins: product-id, refresh-packagekit, subscription-manager
+adding repo from: http://www.example.com/example.repo
+grabbing file http://www.example.com/example.repo to /etc/yum.repos.d/example.repo
+example.repo                                             |  413 B     00:00
+repo saved to /etc/yum.repos.d/example.repo
+```
+
+##### Enabling a Yum Repository
+การเปิดใช้งาน repository ที่เฉพาะเจาะจงนั้น เราต้องใช้ยศ root แล้วพิมพ์คำสั่งนี้ลงใน shell prompt :
+
+`yum-config-manager --enable repository`
+
+ืตัวแปร *repository* ตรงคำสั่งเมิ่อกี้ จะเป็น unique ID ของ repository (ใช้คำสั่ง `yum repolist all` เพื่อลิสต์รหัส repository 
+ทั้งหมดที่มี) อีกวิธีคือใช้ glob expression เพื่อเปิดใช้งาน repository ทั้งหมดที่ตรงกัน :
+
+`yum-config-manager --enable glob_expression`
+
+ยกตัวอย่าง เช่น การเปิดใช้งาน repository ที่กำหนดส่วนของ `[example]`, `[example-debuginfo]` และ `[example-source]` ให้พิมพ์ว่า :
+```
+~]# yum-config-manager --enable example\*
+Loaded plugins: product-id, refresh-packagekit, subscription-manager
+============================== repo: example ==============================
+[example]
+bandwidth = 0
+base_persistdir = /var/lib/yum/repos/x86_64/6Server
+baseurl = http://www.example.com/repo/6Server/x86_64/
+cache = 0
+cachedir = /var/cache/yum/x86_64/6Server/example
+[output truncated]
+```
+
+เมื่อทำเสร็จ  `yum-config-manager --enable` จะแสดงการกำหนดค่าที่เป็นปัจจุบันของ repository
+
+##### Disabling a Yum Repository
+ถ้าต้องปิดใช้งาน Yum repository เราต้องเป็นยศ root แล้วพิมพ์คำสั่ง :
+
+`yum-config-manager --disable repository`
+
+ัวแปร *repository* ตรงคำสั่งเมิ่อกี้ จะเป็น unique ID ของ repository (ใช้คำสั่ง `yum repolist all` เพื่อลิสต์รหัส repository
+ทั้งหมดที่มี) คล้ายกันกับ `yum-config-manager --enable` แล้วเราสามารถใช้ glob expression เพื่อปิดใช้งาน repository ทั้งหมดที่ตรงกันพร้อมๆ กันได้
+
+`yum-config-manager --disable glob_expression`
+
+เมื่อทำเสร็จ  `yum-config-manager --disable` จะแสดงการกำหนดค่าที่เป็นปัจจุบัน
+
+#### Creating a Yum Repository
+ขั้นตอนการสร้าง Yum repository มีขั้นตอนดังนี้
+1. ติดตั้งแพ็คเกจ **createrepo** (เราก็เป็นยศ root ถึงจะติดตั้งได้) \
+  `yum install createrepo`
+2. คัดลอกแพ็คเกจทั้งหมดทั้งที่เราอยากได้ใน repository เอาไปใส่ไว้ที่ directory เดียว เช่น `/mnt/local_repo/`
+3. เปลี่ยนเป็น directory นี้ และรันคำสั่ง :
+  `createrepo --database /mnt/local_repo`
+
+ระบบจะทำการสร้าง metadata ที่จำเป็นสำหรับ Yum repository รวมถึง SQLite database เพื่อเพิ่มความเร็วในการทำงานของ `yum`
+
+#### Working with Yum Cache
+โดยปกติ yum จะลบไฟล์ที่ดาวน์โหลดมาเมื่อไม่ได้ใช้ไฟล์นั้นแล้ว เพิ่อที่จะลดพื้นที่จัดเก็บที่ yum ใช้ อย่างไรก็ตามเราสามารถเปิดใช้งานการเก็บแคช
+เพื่อให้ไฟล์แพ็คเกจที่ดาวน์โหลดด้วย yum อยู่ใน cache directory การจะใช้ข้อมูลจากแคชไม่จำเป็นต้องมีอินเตอร์เน็ตก็ได้ และยังสามารถคัดลอกแพ็คเกจที่จัดเก็บใน
+แคชและนำไปใช้ซ้ำที่อื่นได้อีกด้วย
+
+Yum จะเก็บไฟล์ชั่วคราวไว้ตรง directory `/var/cache/yum/$basearch/$releasever/` ซึ่งแต่ละ repository ที่กำหนดค่าจะมีหนึ่ง subdirectory 
+เช่น, ไดเรกทอรี
+
 
 ### Reference
 - How To Install "yum" Package on Ubuntu \
