@@ -1,1 +1,0 @@
-### Redhat Package Manager (rpm)

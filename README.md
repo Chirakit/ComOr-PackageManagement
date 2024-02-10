@@ -4,7 +4,7 @@
     - [overview \& Concept](#overview--concept)
     - [Benefit](#benefit)
   - [Debian](Debian(65070064)/README.md#debian)
-  - [Redhat Package Manager](RedhatPackageManager(65070005)/README.md#redhat-package-manager-rpm)
+  - [Redhat Package Manager](RedhatPackageManager(65070005)/RPM.md#red-hat-package-manager-rpm)
   - [APT](APT(65070007,65070040)/README.md#advanced-packaging-tool-apt)
   - [YUM](YUM(65070034,65070047)/README.md#yellowdog-updater-modified-yum)
   - [Constrbutors](#constrbutors)
