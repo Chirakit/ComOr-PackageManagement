@@ -10,12 +10,6 @@ YUM คือ โปรแกรมจัดการ package ที่ใช้
 
 "YUM" เป็นคำย่อที่มีความหมายว่า "Yellowdog Updater, Modified" ชื่อนี้นำกลับมาจากต้นกำเนิดของ YUM ที่เป็นการเขียนใหม่ของ Yellowdog UPdater (หรือที่รู้จักกันว่า "YUP") ซึ่งเป็นโปรแกรมอัปเดตซอฟต์แวร์สำหรับระบบปฏิบัติการ Yellow Dog Linux ที่ปัจจุบันไม่มีการพัฒนาต่อแล้ว. การเขียนใหม่ของ YUM เองนั้นได้ชื่อว่า Dandified YUM หรือ "DNF" ที่ได้ทำการแทนที่ YUM เป็นตัวจัดการ package เริ่มต้นใน Fedora และ Red Hat Enterprise Linux ในปัจจุบัน
 
-Yum เป็นตัวจัดการ package ของ Red Hat ที่สามารถสืบค้นข้อมูลเกี่ยวกับ package ที่มีให้ใช้, ดึงข้อมูล package จากที่เก็บ, ติดตั้งและถอนการติดตั้ง package , และอัปเดตระบบทั้งหมดไปยังเวอร์ชันล่าสุดที่มีให้. Yum ทำหน้าที่การแก้ไขข้อผิดพลาดขึ้นอัตโนมัติเมื่อมีการอัปเดต, ติดตั้ง, หรือถอนการติดตั้ง package, และดังนั้นสามารถกำหนด, ดึงข้อมูล, และติดตั้ง package ที่ต้องการทั้งหมดที่มีให้ใช้โดยอัตโนมัติได้
-
-Yum สามารถกำหนดค่าเพิ่มเติมให้กับที่เก็บข้อมูล (repositories) หรือแหล่งข้อมูล package, และยังมีปลั๊กอินหลายตัวที่เพิ่มประสิทธิภาพและขยายความสามารถของ Yum. Yum สามารถทำงานในหลายภารกิจที่เหมือนกับ RPM ได้; นอกจากนี้, หลายตัวเลือกบนบรรทัดคำสั่งก็มีลักษณะเดียวกัน. Yum ทำให้การจัดการ package เป็นเรื่องที่ง่ายและไม่ซับซ้อนทั้งบนเครื่องเดียวหรือกลุ่มเครื่อง
-
-Yum ยังช่วยให้คุณสามารถตั้งค่าที่เก็บข้อมูลของคุณเองที่มี package RPM เพื่อดาวน์โหลดและติดตั้งบนเครื่องอื่นได้อย่างง่ายดาย. เมื่อเป็นไปได้, yum ใช้การดาวน์โหลดพร้อมกันของ package และ metadata หลายรายการเพื่อเพิ่มความเร็วในการดาวน์โหลด
-
 ## Checking For and Updating Packages
 
 Yum ช่วยให้คุณตรวจสอบว่าระบบของคุณมีการอัปเดตใดที่รอการใช้งานอยู่หรือไม่. คุณสามารถแสดงรายการ package ที่ต้องการอัปเดตหรือจะอัปเดตทั้งหมดพร้อมกัน, หรือคุณสามารถอัปเดต package ที่ต้องการโดยเฉพาะได้
@@ -354,3 +348,89 @@ yum install-na name.architecture
 ```
 yum install-nevra name-epoch:version-release.architecture
 ```
+
+**Installation Process**
+```
+~]# yum install httpd
+Loaded plugins: langpacks, product-id, subscription-manager
+Resolving Dependencies
+--> Running transaction check
+---> Package httpd.x86_64 0:2.4.6-12.el7 will be updated
+---> Package httpd.x86_64 0:2.4.6-13.el7 will be an update
+--> Processing Dependency: 2.4.6-13.el7 for package: httpd-2.4.6-13.el7.x86_64
+--> Running transaction check
+---> Package httpd-tools.x86_64 0:2.4.6-12.el7 will be updated
+---> Package httpd-tools.x86_64 0:2.4.6-13.el7 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+```
+หลังจากที่ทำคำสั่งดังกล่าว yum จะโหลดปลั๊กอินที่จำเป็นและทำการตรวจสอบการทำธุรกรรม (transaction check) ในกรณีนี้ httpd ได้ถูกติดตั้งไว้แล้ว โดยที่เป็นเวอร์ชันเก่ากว่าเวอร์ชันล่าสุดที่มีอยู่ ดังนั้นจะทำการอัพเดท httpd เป็นเวอร์ชันล่าสุดที่มีอยู่ สถานะเดียวกันจะเป็นกับแพ็คเกจ httpd-tools ที่เป็นแพ็คเกจที่ httpd ขึ้นอยู่ จากนั้นจะแสดงสรุปของธุรกรรม (transaction summary)
+```
+================================================================================
+ Package    Arch   Version         Repository        Size
+================================================================================
+Updating:
+ httpd     x86_64  2.4.6-13.el7      rhel-x86_64-server-7  1.2 M
+Updating for dependencies:
+ httpd-tools  x86_64  2.4.6-13.el7      rhel-x86_64-server-7   77 k
+
+Transaction Summary
+================================================================================
+Upgrade 1 Package (+1 Dependent package)
+
+Total size: 1.2 M
+Is this ok [y/d/N]:
+```
+ในขั้นตอนนี้ yum จะแสดงหน้าต่างยืนยันการติดตั้ง นอกจากตัวเลือก y (ใช่) และ N (ไม่) คุณยังสามารถเลือกตัวเลือก d (ดาวน์โหลดเท่านั้น) เพื่อดาวน์โหลดแพ็คเกจแต่ไม่ติดตั้งทันที หากคุณเลือก y, การติดตั้งจะดำเนินการต่อไปพร้อมกับข้อความต่อไปนี้จนกระทั่งเสร็จสิ้นโดยสำเร็จ
+```
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+ Updating  : httpd-tools-2.4.6-13.el7.x86_64               1/4
+ Updating  : httpd-2.4.6-13.el7.x86_64                  2/4
+ Cleanup  : httpd-2.4.6-12.el7.x86_64                  3/4
+ Cleanup  : httpd-tools-2.4.6-12.el7.x86_64               4/4
+ Verifying : httpd-2.4.6-13.el7.x86_64                  1/4
+ Verifying : httpd-tools-2.4.6-13.el7.x86_64               2/4
+ Verifying : httpd-tools-2.4.6-12.el7.x86_64               3/4
+ Verifying : httpd-2.4.6-12.el7.x86_64                  4/4
+
+Updated:
+ httpd.x86_64 0:2.4.6-13.el7
+
+Dependency Updated:
+ httpd-tools.x86_64 0:2.4.6-13.el7
+
+Complete!
+```
+## Downloading Packages
+ตามที่แสดงในตัวอย่าง "Installation Process", ในขั้นตอนการติดตั้งที่บางจุดคุณจะได้รับคำถามเพื่อยืนยันการติดตั้งด้วยข้อความต่อไปนี้:
+```
+...
+Total size: 1.2 M
+Is this ok [y/d/N]:
+...
+```
+ด้วยตัวเลือก d, yum จะดาวน์โหลดแพ็คเกจโดยไม่ติดตั้งทันที คุณสามารถติดตั้งแพ็คเกจเหล่านี้ภายหลังได้โดยใช้คำสั่ง yum localinstall หรือคุณยังสามารถแบ่งปันแพ็คเกจกับอุปกรณ์อื่น ๆ ได้ แพ็คเกจที่ดาวน์โหลดจะถูกบันทึกไว้ในหนึ่งในไดเรกทอรีย่อยของไดเรกทอรีแคช โดยค่าเริ่มต้นคือ /var/cache/yum/$basearch/$releasever/packages/ การดาวน์โหลดจะดำเนินการในโหมดพื้นหลังเพื่อให้คุณสามารถใช้ yum สำหรับการดำเนินการอื่น ๆ ได้พร้อมกัน
+
+## Removing Packages
+เหมือนกับการติดตั้งแพ็คเกจ, yum ยังช่วยให้คุณถอนการติดตั้งแพ็คเกจได้ด้วยคำสั่ง uninstall. เพื่อถอนการติดตั้งแพ็คเกจที่ระบุ, รวมถึงแพ็คเกจทั้งหมดที่ขึ้นอยู่กับมัน, ให้ทำการรันคำสั่งต่อไปนี้ในฐานะ root:
+```
+yum remove package_name&hellip;
+```
+เช่นเดียวกับคำสั่ง `install`, คำสั่ง `remove` ก็สามารถใช้ arguments เหล่านี้ได้:
+- package names
+- glob expressions
+- file lists
+- package provides
+
+<hr>
+
+# References
+- Installing and Managing Software : YUM<br>
+  https://access.redhat.com/documentation/th-th/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-yum#doc-wrapper
+- What is Yum?<br>
+  https://www.digitalocean.com/community/tutorials/what-is-yum
